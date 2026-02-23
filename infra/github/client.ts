@@ -1,4 +1,4 @@
-import type { SearchRepositoriesResponse } from "./types";
+import type { Repository, SearchRepositoriesResponse } from "./types";
 
 const GITHUB_API_BASE = "https://api.github.com";
 
@@ -14,8 +14,26 @@ export async function searchRepositories(
   const response = await fetch(url, { headers: defaultHeaders });
 
   if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `GitHub API error: ${response.status} ${response.statusText}`,
+    );
   }
 
   return response.json() as Promise<SearchRepositoriesResponse>;
+}
+
+export async function getRepository(
+  owner: string,
+  repo: string,
+): Promise<Repository> {
+  const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
+  const response = await fetch(url, { headers: defaultHeaders });
+
+  if (!response.ok) {
+    throw new Error(
+      `GitHub API error: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  return response.json() as Promise<Repository>;
 }
