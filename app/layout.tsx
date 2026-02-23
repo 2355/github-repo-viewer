@@ -5,6 +5,8 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 
+import { Header } from "@/components/organisms/Header/Header";
+
 import { QueryProvider } from "./providers";
 
 export const metadata: Metadata = {
@@ -21,6 +23,7 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Theme accentColor="blue" grayColor="slate" radius="medium">
+          <Header />
           <QueryProvider>{children}</QueryProvider>
         </Theme>
       </body>

@@ -1,5 +1,3 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
 import { getRepository, searchRepositories } from "./client";
 import type { Repository, SearchRepositoriesResponse } from "./types";
 
