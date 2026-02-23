@@ -5,6 +5,8 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 
+import { QueryProvider } from "./providers";
+
 export const metadata: Metadata = {
   title: "GitHub Repository Viewer",
   description: "Search and browse GitHub repositories",
@@ -19,7 +21,7 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Theme accentColor="blue" grayColor="slate" radius="medium">
-          {children}
+          <QueryProvider>{children}</QueryProvider>
         </Theme>
       </body>
     </html>
