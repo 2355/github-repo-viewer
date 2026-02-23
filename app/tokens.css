@@ -1,0 +1,70 @@
+/*
+ * デザイントークン
+ * Radix Themes の CSS 変数名に合わせた命名規則を採用している。
+ * https://www.radix-ui.com/themes/docs/theme/spacing
+ * https://www.radix-ui.com/themes/docs/theme/typography
+ * https://www.radix-ui.com/themes/docs/theme/color
+ * https://www.radix-ui.com/themes/docs/theme/radius
+ */
+:root {
+  /* spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-9: 64px;
+
+  /* typography */
+  --font-size-1: 12px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 20px;
+  --font-size-6: 24px;
+  --font-size-7: 28px;
+  --font-size-8: 35px;
+  --font-size-9: 60px;
+
+  --line-height-1: 16px;
+  --line-height-2: 20px;
+  --line-height-3: 24px;
+  --line-height-4: 26px;
+  --line-height-5: 28px;
+  --line-height-6: 30px;
+  --line-height-7: 36px;
+  --line-height-8: 40px;
+  --line-height-9: 60px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* color */
+  --color-primary: var(--accent-9);
+  --color-primary-hover: var(--accent-10);
+  --color-surface: var(--color-background);
+  --color-surface-raised: var(--gray-2);
+  --color-text: var(--gray-12);
+  --color-text-secondary: var(--gray-11);
+  --color-border: var(--gray-6);
+
+  /* radius */
+  --radius-1: 3px;
+  --radius-2: 4px;
+  --radius-3: 6px;
+  --radius-4: 8px;
+  --radius-5: 12px;
+  --radius-6: 16px;
+
+  /* shadow */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-2: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-3: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-4: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-5: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  --shadow-6: 0 25px 50px rgba(0, 0, 0, 0.25);
+}

@@ -1,5 +1,8 @@
+import "@radix-ui/themes/styles.css";
+import "./tokens.css";
 import "./globals.css";
 
+import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        <Theme accentColor="blue" grayColor="slate" radius="medium">
+          {children}
+        </Theme>
+      </body>
     </html>
   );
 }
