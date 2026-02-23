@@ -22,6 +22,13 @@ const eslintConfig = defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    rules: {
+      // number と boolean はテンプレートリテラルへの埋め込みを許可
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        { allowNumber: true, allowBoolean: true },
+      ],
+    },
   },
 
   {
