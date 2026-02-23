@@ -1,0 +1,24 @@
+## 使用技術
+
+- Next.js app router
+  - Turbopack
+  - CSS Modules
+- TypeScript
+- typed-css-modules
+- radix themes
+- eslint
+- prettier
+- vitest
+- testing-library/react
+- happy-dom
+- Storybook
+- Playwright
+- GitHub Actions
+  - CI: lint, type check, test
+  - CD: deploy to Vercel
+  - CD: deploy Storybook to GitHub Pages
+- GitHub API
+  - GraphQL: https://docs.github.com/ja/graphql/reference/queries#search
+    - Relay
+  - REST: https://docs.github.com/ja/rest/search/search?apiVersion=2022-11-28#search-repositories
+    - TanStack Query
