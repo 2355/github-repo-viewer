@@ -4,6 +4,7 @@ import nextTs from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier";
 import reactCompiler from "eslint-plugin-react-compiler";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+import storybook from "eslint-plugin-storybook";
 import unusedImports from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
 
@@ -58,6 +59,10 @@ const eslintConfig = defineConfig([
     files: ["eslint.config.mjs"],
     ...tseslint.configs.disableTypeChecked,
   },
+  {
+    files: [".storybook/**"],
+    ...tseslint.configs.disableTypeChecked,
+  },
   // Next.js の redirects 等は API 仕様上 async が必要だが await は不要
   {
     files: ["next.config.ts"],
@@ -65,6 +70,9 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/require-await": "off",
     },
   },
+
+  // ストーリーファイルの書き方に関するルール
+  ...storybook.configs["flat/recommended"],
 
   // Prettier と競合するフォーマット系ルールを無効化。必ず最後に配置する。
   prettier,
