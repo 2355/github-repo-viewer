@@ -34,3 +34,8 @@ export type SearchRepositoriesResponse = {
   incomplete_results: boolean;
   items: Repository[];
 };
+
+export type SearchRepositoriesResult = {
+  items: Repository[];
+  total_pages: number;
+};

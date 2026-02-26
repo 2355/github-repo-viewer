@@ -1,31 +1,35 @@
 import { getRepository, searchRepositories } from "./client";
-import type { Repository, SearchRepositoriesResponse } from "./types";
+import type {
+  Repository,
+  SearchRepositoriesResponse,
+  SearchRepositoriesResult,
+} from "./types";
 
 const GITHUB_API_BASE = "https://api.github.com";
 
 describe("searchRepositories", () => {
-  const searchResponse: SearchRepositoriesResponse = {
-    total_count: 1,
+  const item = {
+    name: "react",
+    full_name: "facebook/react",
+    owner: {
+      login: "facebook",
+      avatar_url: "https://avatars.githubusercontent.com/u/69631?v=4",
+    },
+    description:
+      "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+    language: "JavaScript",
+    stargazers_count: 200000,
+    watchers_count: 6500,
+    forks_count: 42000,
+    open_issues_count: 1000,
+    html_url: "https://github.com/facebook/react",
+    updated_at: "2025-01-01T00:00:00Z",
+  } satisfies Repository;
+
+  const apiResponse: SearchRepositoriesResponse = {
+    total_count: 45,
     incomplete_results: false,
-    items: [
-      {
-        name: "react",
-        full_name: "facebook/react",
-        owner: {
-          login: "facebook",
-          avatar_url: "https://avatars.githubusercontent.com/u/69631?v=4",
-        },
-        description:
-          "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
-        language: "JavaScript",
-        stargazers_count: 200000,
-        watchers_count: 6500,
-        forks_count: 42000,
-        open_issues_count: 1000,
-        html_url: "https://github.com/facebook/react",
-        updated_at: "2025-01-01T00:00:00Z",
-      },
-    ],
+    items: [item],
   };
 
   beforeEach(() => {
@@ -33,7 +37,7 @@ describe("searchRepositories", () => {
       "fetch",
       vi.fn().mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve(searchResponse),
+        json: () => Promise.resolve(apiResponse),
       }),
     );
   });
@@ -42,11 +46,11 @@ describe("searchRepositories", () => {
     vi.restoreAllMocks();
   });
 
-  it("クエリとページ番号を含む正しい URL と Accept ヘッダーで fetch を呼ぶ", async () => {
+  it("クエリとページ番号と per_page を含む正しい URL と Accept ヘッダーで fetch を呼ぶ", async () => {
     await searchRepositories("react", 2);
 
     expect(fetch).toHaveBeenCalledWith(
-      `${GITHUB_API_BASE}/search/repositories?q=react&page=2`,
+      `${GITHUB_API_BASE}/search/repositories?q=react&page=2&per_page=10`,
       {
         headers: {
           Accept: "application/vnd.github+json",
@@ -59,15 +63,19 @@ describe("searchRepositories", () => {
     await searchRepositories("hello 日本", 1);
 
     expect(fetch).toHaveBeenCalledWith(
-      `${GITHUB_API_BASE}/search/repositories?q=hello%20%E6%97%A5%E6%9C%AC&page=1`,
+      `${GITHUB_API_BASE}/search/repositories?q=hello%20%E6%97%A5%E6%9C%AC&page=1&per_page=10`,
       expect.objectContaining({}),
     );
   });
 
-  it("レスポンスの JSON をそのまま返す", async () => {
+  it("API レスポンスを SearchRepositoriesResult に変換して返す", async () => {
     const result = await searchRepositories("react", 1);
 
-    expect(result).toEqual(searchResponse);
+    const expected: SearchRepositoriesResult = {
+      items: [item],
+      total_pages: 5,
+    };
+    expect(result).toEqual(expected);
   });
 
   it("レスポンスが ok でない場合はエラーを throw する", async () => {

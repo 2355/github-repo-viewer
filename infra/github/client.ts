@@ -1,6 +1,11 @@
-import type { Repository, SearchRepositoriesResponse } from "./types";
+import type {
+  Repository,
+  SearchRepositoriesResponse,
+  SearchRepositoriesResult,
+} from "./types";
 
 const GITHUB_API_BASE = "https://api.github.com";
+const PER_PAGE = 10;
 
 const defaultHeaders: HeadersInit = {
   Accept: "application/vnd.github+json",
@@ -9,8 +14,8 @@ const defaultHeaders: HeadersInit = {
 export async function searchRepositories(
   query: string,
   page: number,
-): Promise<SearchRepositoriesResponse> {
-  const url = `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(query)}&page=${page}`;
+): Promise<SearchRepositoriesResult> {
+  const url = `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(query)}&page=${page}&per_page=${PER_PAGE}`;
   const response = await fetch(url, { headers: defaultHeaders });
 
   if (!response.ok) {
@@ -19,7 +24,11 @@ export async function searchRepositories(
     );
   }
 
-  return response.json() as Promise<SearchRepositoriesResponse>;
+  const data = (await response.json()) as SearchRepositoriesResponse;
+  return {
+    items: data.items,
+    total_pages: Math.ceil(data.total_count / PER_PAGE),
+  };
 }
 
 export async function getRepository(

@@ -18,9 +18,7 @@ describe("SearchBar", () => {
 
   it("検索ボタンが表示される", () => {
     render(<SearchBar onSearch={() => {}} />);
-    expect(
-      screen.getByRole("button", { name: "検索" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "検索" })).toBeInTheDocument();
   });
 
   it("defaultValue が入力欄の初期値に反映される", () => {
@@ -68,9 +66,9 @@ describe("SearchBar", () => {
     );
 
     expect(onSearch).not.toHaveBeenCalled();
-    expect(
-      screen.getByRole("alert"),
-    ).toHaveTextContent("検索キーワードを入力してください");
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "検索キーワードを入力してください",
+    );
   });
 
   it("空の入力では onSearch が呼ばれず、バリデーションメッセージが表示される", async () => {
@@ -81,9 +79,9 @@ describe("SearchBar", () => {
     await user.click(screen.getByRole("button", { name: "検索" }));
 
     expect(onSearch).not.toHaveBeenCalled();
-    expect(
-      screen.getByRole("alert"),
-    ).toHaveTextContent("検索キーワードを入力してください");
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "検索キーワードを入力してください",
+    );
   });
 
   it("バリデーションエラー表示後、入力を始めるとメッセージが消える", async () => {
