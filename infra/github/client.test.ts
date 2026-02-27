@@ -90,6 +90,37 @@ describe("searchRepositories", () => {
 
     await expect(searchRepositories("react", 1)).rejects.toThrow();
   });
+
+  it("page が 101 以上の場合はエラーを throw する", async () => {
+    await expect(searchRepositories("react", 101)).rejects.toThrow(
+      "Page number exceeds maximum of 100",
+    );
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("page が 100 の場合は正常に動作する", async () => {
+    const result = await searchRepositories("react", 100);
+
+    expect(result.items).toEqual([item]);
+  });
+
+  it("total_count が 1000 を超える場合 total_pages が 100 にキャップされる", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            ...apiResponse,
+            total_count: 1001,
+          }),
+      }),
+    );
+
+    const result = await searchRepositories("react", 1);
+
+    expect(result.total_pages).toBe(100);
+  });
 });
 
 describe("getRepository", () => {
