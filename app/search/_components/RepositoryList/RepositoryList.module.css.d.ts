@@ -1,6 +1,7 @@
 declare const styles: {
-  readonly list: string;
-  readonly pagination: string;
-  readonly skeletonItem: string;
+  readonly "list": string;
+  readonly "pagination": string;
+  readonly "skeletonItem": string;
 };
 export = styles;
+
