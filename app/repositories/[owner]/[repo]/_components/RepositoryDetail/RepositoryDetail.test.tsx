@@ -49,9 +49,7 @@ describe("RepositoryDetail", () => {
 
   it("description が null の場合、説明を表示しない", () => {
     render(
-      <RepositoryDetail
-        repository={{ ...repository, description: null }}
-      />,
+      <RepositoryDetail repository={{ ...repository, description: null }} />,
     );
     expect(
       screen.queryByText("My first repository on GitHub!"),
@@ -84,16 +82,12 @@ describe("RepositoryDetail", () => {
   });
 
   it("language が null の場合、言語を表示しない", () => {
-    render(
-      <RepositoryDetail repository={{ ...repository, language: null }} />,
-    );
+    render(<RepositoryDetail repository={{ ...repository, language: null }} />);
     expect(screen.queryByText("TypeScript")).not.toBeInTheDocument();
   });
 
   it("オーナーのアバター画像を表示する", () => {
     render(<RepositoryDetail repository={repository} />);
-    expect(
-      screen.getByRole("img", { name: "octocat" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "octocat" })).toBeInTheDocument();
   });
 });
