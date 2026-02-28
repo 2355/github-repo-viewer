@@ -10,7 +10,7 @@ export default function Loading() {
           width="64px"
           height="64px"
           data-testid="skeleton-avatar"
-          style={{ borderRadius: "var(--radius-full)" }}
+          className={styles.avatarSkeleton}
         />
         <Skeleton width="240px" height="30px" data-testid="skeleton" />
       </div>

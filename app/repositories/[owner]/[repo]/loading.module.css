@@ -23,3 +23,7 @@
   align-items: center;
   gap: var(--space-1);
 }
+
+.avatarSkeleton {
+  border-radius: var(--radius-full);
+}
