@@ -68,17 +68,17 @@ describe("searchRepositories", () => {
     );
   });
 
-  it("API レスポンスを SearchRepositoriesResult に変換して返す", async () => {
+  it("API レスポンスを成功の Result で返す", async () => {
     const result = await searchRepositories("react", 1);
 
     const expected: SearchRepositoriesResult = {
       items: [item],
       total_pages: 5,
     };
-    expect(result).toEqual(expected);
+    expect(result).toEqual({ ok: true, data: expected });
   });
 
-  it("レスポンスが ok でない場合はエラーを throw する", async () => {
+  it("レスポンスが ok でない場合は失敗の Result を返す", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
@@ -88,20 +88,31 @@ describe("searchRepositories", () => {
       }),
     );
 
-    await expect(searchRepositories("react", 1)).rejects.toThrow();
+    const result = await searchRepositories("react", 1);
+
+    expect(result).toEqual({
+      ok: false,
+      error: { status: 403, message: "GitHub API error: 403 Forbidden" },
+    });
   });
 
-  it("page が 101 以上の場合はエラーを throw する", async () => {
-    await expect(searchRepositories("react", 101)).rejects.toThrow(
-      "Page number exceeds maximum of 100",
-    );
+  it("page が 101 以上の場合は失敗の Result を返す", async () => {
+    const result = await searchRepositories("react", 101);
+
+    expect(result).toEqual({
+      ok: false,
+      error: {
+        status: 422,
+        message: "Page number exceeds maximum of 100",
+      },
+    });
     expect(fetch).not.toHaveBeenCalled();
   });
 
   it("page が 100 の場合は正常に動作する", async () => {
     const result = await searchRepositories("react", 100);
 
-    expect(result.items).toEqual([item]);
+    expect(result).toEqual({ ok: true, data: { items: [item], total_pages: 5 } });
   });
 
   it("total_count が 1000 を超える場合 total_pages が 100 にキャップされる", async () => {
@@ -119,7 +130,10 @@ describe("searchRepositories", () => {
 
     const result = await searchRepositories("react", 1);
 
-    expect(result.total_pages).toBe(100);
+    expect(result).toMatchObject({
+      ok: true,
+      data: { total_pages: 100 },
+    });
   });
 });
 
@@ -169,13 +183,13 @@ describe("getRepository", () => {
     );
   });
 
-  it("レスポンスの JSON をそのまま返す", async () => {
+  it("レスポンスを成功の Result で返す", async () => {
     const result = await getRepository("facebook", "react");
 
-    expect(result).toEqual(repository);
+    expect(result).toEqual({ ok: true, data: repository });
   });
 
-  it("レスポンスが ok でない場合はエラーを throw する", async () => {
+  it("レスポンスが ok でない場合は失敗の Result を返す", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
@@ -185,6 +199,11 @@ describe("getRepository", () => {
       }),
     );
 
-    await expect(getRepository("facebook", "nonexistent")).rejects.toThrow();
+    const result = await getRepository("facebook", "nonexistent");
+
+    expect(result).toEqual({
+      ok: false,
+      error: { status: 404, message: "GitHub API error: 404 Not Found" },
+    });
   });
 });

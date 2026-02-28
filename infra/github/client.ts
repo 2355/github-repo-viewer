@@ -1,3 +1,4 @@
+import type { ApiResult } from "../types";
 import type {
   Repository,
   SearchRepositoriesResponse,
@@ -16,39 +17,57 @@ const defaultHeaders: HeadersInit = {
 export async function searchRepositories(
   query: string,
   page: number,
-): Promise<SearchRepositoriesResult> {
+): Promise<ApiResult<SearchRepositoriesResult>> {
   if (page > MAX_PAGE) {
-    throw new Error(`Page number exceeds maximum of ${MAX_PAGE}`);
+    return {
+      ok: false,
+      error: {
+        status: 422,
+        message: `Page number exceeds maximum of ${MAX_PAGE}`,
+      },
+    };
   }
 
   const url = `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(query)}&page=${page}&per_page=${PER_PAGE}`;
   const response = await fetch(url, { headers: defaultHeaders });
 
   if (!response.ok) {
-    throw new Error(
-      `GitHub API error: ${response.status} ${response.statusText}`,
-    );
+    return {
+      ok: false,
+      error: {
+        status: response.status,
+        message: `GitHub API error: ${response.status} ${response.statusText}`,
+      },
+    };
   }
 
   const data = (await response.json()) as SearchRepositoriesResponse;
   return {
-    items: data.items,
-    total_pages: Math.min(Math.ceil(data.total_count / PER_PAGE), MAX_PAGE),
+    ok: true,
+    data: {
+      items: data.items,
+      total_pages: Math.min(Math.ceil(data.total_count / PER_PAGE), MAX_PAGE),
+    },
   };
 }
 
 export async function getRepository(
   owner: string,
   repo: string,
-): Promise<Repository> {
+): Promise<ApiResult<Repository>> {
   const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
   const response = await fetch(url, { headers: defaultHeaders });
 
   if (!response.ok) {
-    throw new Error(
-      `GitHub API error: ${response.status} ${response.statusText}`,
-    );
+    return {
+      ok: false,
+      error: {
+        status: response.status,
+        message: `GitHub API error: ${response.status} ${response.statusText}`,
+      },
+    };
   }
 
-  return response.json() as Promise<Repository>;
+  const data = (await response.json()) as Repository;
+  return { ok: true, data };
 }
