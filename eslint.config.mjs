@@ -29,6 +29,7 @@ const eslintConfig = defineConfig([
         "error",
         { allowNumber: true, allowBoolean: true },
       ],
+      "@typescript-eslint/consistent-type-imports": "error",
     },
   },
 
