@@ -68,7 +68,7 @@ describe("searchRepositories", () => {
     );
   });
 
-  it("API レスポンスを成功の Result で返す", async () => {
+  it("レスポンスが ok の場合は成功の Result で返す", async () => {
     const result = await searchRepositories("react", 1);
 
     const expected: SearchRepositoriesResult = {
@@ -96,6 +96,15 @@ describe("searchRepositories", () => {
     });
   });
 
+  it("page が 100 の場合は成功の Result で返す", async () => {
+    const result = await searchRepositories("react", 100);
+
+    expect(result).toEqual({
+      ok: true,
+      data: { items: [item], total_pages: 5 },
+    });
+  });
+
   it("page が 101 以上の場合は失敗の Result を返す", async () => {
     const result = await searchRepositories("react", 101);
 
@@ -107,12 +116,6 @@ describe("searchRepositories", () => {
       },
     });
     expect(fetch).not.toHaveBeenCalled();
-  });
-
-  it("page が 100 の場合は正常に動作する", async () => {
-    const result = await searchRepositories("react", 100);
-
-    expect(result).toEqual({ ok: true, data: { items: [item], total_pages: 5 } });
   });
 
   it("total_count が 1000 を超える場合 total_pages が 100 にキャップされる", async () => {
@@ -183,7 +186,7 @@ describe("getRepository", () => {
     );
   });
 
-  it("レスポンスを成功の Result で返す", async () => {
+  it("レスポンスが ok の場合は成功の Result で返す", async () => {
     const result = await getRepository("facebook", "react");
 
     expect(result).toEqual({ ok: true, data: repository });
