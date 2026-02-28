@@ -19,7 +19,9 @@ export default function ErrorPage({ reset }: ErrorPageProps) {
       </p>
       <div className={styles.actions}>
         <Button onClick={reset}>再試行</Button>
-        <Link href="/search">検索に戻る</Link>
+        <Button variant="outline" asChild>
+          <Link href="/search">検索に戻る</Link>
+        </Button>
       </div>
     </div>
   );
