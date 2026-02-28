@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import type { Repository } from "@/infra/github/types";
 
-import { SearchPageContent } from "./SearchPageContent";
+import SearchPage from "./page";
 
 const mockPush = vi.fn();
 
@@ -12,13 +12,13 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock("../../_hooks/useSearchRepositories", () => ({
+vi.mock("./_hooks/useSearchRepositories", () => ({
   useSearchRepositories: vi.fn(),
 }));
 
 import { useSearchParams } from "next/navigation";
 
-import { useSearchRepositories } from "../../_hooks/useSearchRepositories";
+import { useSearchRepositories } from "./_hooks/useSearchRepositories";
 
 const mockedUseSearchParams = vi.mocked(useSearchParams);
 const mockedUseSearchRepositories = vi.mocked(useSearchRepositories);
@@ -56,7 +56,7 @@ function setupHookResult(
   } as ReturnType<typeof useSearchRepositories>);
 }
 
-describe("SearchPageContent", () => {
+describe("SearchPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     setupSearchParams({});
@@ -64,13 +64,13 @@ describe("SearchPageContent", () => {
   });
 
   it("SearchBar が表示される", () => {
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(screen.getByRole("search")).toBeInTheDocument();
   });
 
   it("q パラメータがないとき RepositoryList を表示しない", () => {
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(screen.queryByTestId("skeleton-item")).not.toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
@@ -81,7 +81,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react" });
     setupHookResult();
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(screen.getByRole("searchbox")).toHaveValue("react");
   });
@@ -90,7 +90,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react", page: "3" });
     setupHookResult();
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(mockedUseSearchRepositories).toHaveBeenCalledWith("react", 3);
   });
@@ -99,7 +99,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react" });
     setupHookResult();
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(mockedUseSearchRepositories).toHaveBeenCalledWith("react", 1);
   });
@@ -108,7 +108,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react", page: "abc" });
     setupHookResult();
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(mockedUseSearchRepositories).toHaveBeenCalledWith("react", 1);
   });
@@ -117,7 +117,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react" });
     setupHookResult();
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     const searchbox = screen.getByRole("searchbox");
     await userEvent.clear(searchbox);
@@ -130,7 +130,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react", page: "3" });
     setupHookResult();
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     const searchbox = screen.getByRole("searchbox");
     await userEvent.clear(searchbox);
@@ -148,7 +148,7 @@ describe("SearchPageContent", () => {
       },
     });
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     await userEvent.click(screen.getByLabelText("次のページへ"));
 
@@ -164,7 +164,7 @@ describe("SearchPageContent", () => {
       },
     });
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(screen.getByText("react")).toBeInTheDocument();
   });
@@ -173,7 +173,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react" });
     setupHookResult({ isLoading: true });
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(screen.getAllByTestId("skeleton-item")).toHaveLength(5);
   });
@@ -182,7 +182,7 @@ describe("SearchPageContent", () => {
     setupSearchParams({ q: "react" });
     setupHookResult({ isError: true });
 
-    render(<SearchPageContent />);
+    render(<SearchPage />);
 
     expect(screen.getByRole("alert")).toBeInTheDocument();
   });
