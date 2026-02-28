@@ -1,9 +1,6 @@
 import type { ApiResult } from "../types";
-import type {
-  Repository,
-  SearchRepositoriesResponse,
-  SearchRepositoriesResult,
-} from "./types";
+import { repositorySchema, searchRepositoriesResponseSchema } from "./schemas";
+import type { Repository, SearchRepositoriesResult } from "./types";
 
 const GITHUB_API_BASE = "https://api.github.com";
 const PER_PAGE = 10;
@@ -41,12 +38,24 @@ export async function searchRepositories(
     };
   }
 
-  const data = (await response.json()) as SearchRepositoriesResponse;
+  const json: unknown = await response.json();
+  const parsed = searchRepositoriesResponseSchema.safeParse(json);
+
+  if (!parsed.success) {
+    return {
+      ok: false,
+      error: { status: 500, message: "Invalid API response" },
+    };
+  }
+
   return {
     ok: true,
     data: {
-      items: data.items,
-      total_pages: Math.min(Math.ceil(data.total_count / PER_PAGE), MAX_PAGE),
+      items: parsed.data.items,
+      total_pages: Math.min(
+        Math.ceil(parsed.data.total_count / PER_PAGE),
+        MAX_PAGE,
+      ),
     },
   };
 }
@@ -68,6 +77,15 @@ export async function getRepository(
     };
   }
 
-  const data = (await response.json()) as Repository;
-  return { ok: true, data };
+  const json: unknown = await response.json();
+  const parsed = repositorySchema.safeParse(json);
+
+  if (!parsed.success) {
+    return {
+      ok: false,
+      error: { status: 500, message: "Invalid API response" },
+    };
+  }
+
+  return { ok: true, data: parsed.data };
 }

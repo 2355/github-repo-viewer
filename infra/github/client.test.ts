@@ -118,6 +118,28 @@ describe("searchRepositories", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it("レスポンスが不正な形式の場合はバリデーションエラーの Result を返す", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            total_count: "not a number",
+            incomplete_results: false,
+            items: [],
+          }),
+      }),
+    );
+
+    const result = await searchRepositories("react", 1);
+
+    expect(result).toEqual({
+      ok: false,
+      error: { status: 500, message: "Invalid API response" },
+    });
+  });
+
   it("total_count が 1000 を超える場合 total_pages が 100 にキャップされる", async () => {
     vi.stubGlobal(
       "fetch",
@@ -207,6 +229,28 @@ describe("getRepository", () => {
     expect(result).toEqual({
       ok: false,
       error: { status: 404, message: "GitHub API error: 404 Not Found" },
+    });
+  });
+
+  it("レスポンスが不正な形式の場合はバリデーションエラーの Result を返す", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            name: "react",
+            full_name: "facebook/react",
+            owner: { login: "facebook" },
+          }),
+      }),
+    );
+
+    const result = await getRepository("facebook", "react");
+
+    expect(result).toEqual({
+      ok: false,
+      error: { status: 500, message: "Invalid API response" },
     });
   });
 });
