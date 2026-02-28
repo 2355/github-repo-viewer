@@ -27,7 +27,7 @@ export function SearchPageContent() {
   };
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <SearchBar key={query} defaultValue={query} onSearch={handleSearch} />
       {query && (
         <RepositoryList
@@ -39,6 +39,6 @@ export function SearchPageContent() {
           isError={isError}
         />
       )}
-    </main>
+    </div>
   );
 }
