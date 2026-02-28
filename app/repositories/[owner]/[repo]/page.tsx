@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import { getRepository } from "@/infra/github/client";
 
 import { RepositoryDetail } from "./_components/RepositoryDetail/RepositoryDetail";
@@ -13,6 +15,14 @@ export async function generateMetadata({ params }: Params) {
 
 export default async function RepositoryPage({ params }: Params) {
   const { owner, repo } = await params;
-  const repository = await getRepository(owner, repo);
-  return <RepositoryDetail repository={repository} />;
+  const result = await getRepository(owner, repo);
+
+  if (!result.ok) {
+    if (result.error.status === 404) {
+      notFound();
+    }
+    throw new Error(result.error.message);
+  }
+
+  return <RepositoryDetail repository={result.data} />;
 }
