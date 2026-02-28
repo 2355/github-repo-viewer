@@ -56,7 +56,7 @@ describe("useSearchRepositories", () => {
   });
 
   it("クエリとページ番号を引数に searchRepositories を呼び、データを返す", async () => {
-    mockSearchRepositories.mockResolvedValue(searchResult);
+    mockSearchRepositories.mockResolvedValue({ ok: true, data: searchResult });
 
     const { result } = renderHook(() => useSearchRepositories("next.js", 3), {
       wrapper: createWrapper(),
@@ -87,10 +87,11 @@ describe("useSearchRepositories", () => {
     expect(mockSearchRepositories).not.toHaveBeenCalled();
   });
 
-  it("searchRepositories がエラーを throw した場合、isError が true になる", async () => {
-    mockSearchRepositories.mockRejectedValue(
-      new Error("GitHub API error: 403 Forbidden"),
-    );
+  it("searchRepositories が失敗の Result を返した場合、isError が true になる", async () => {
+    mockSearchRepositories.mockResolvedValue({
+      ok: false,
+      error: { status: 403, message: "GitHub API error: 403 Forbidden" },
+    });
 
     const { result } = renderHook(() => useSearchRepositories("react", 1), {
       wrapper: createWrapper(),
