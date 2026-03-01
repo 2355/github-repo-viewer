@@ -1,3 +1,11 @@
+.card {
+  transition: background-color 0.15s ease;
+}
+
+.card:hover {
+  background-color: var(--color-surface-hover);
+}
+
 .link {
   display: flex;
   align-items: center;

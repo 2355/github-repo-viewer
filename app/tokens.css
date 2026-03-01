@@ -81,6 +81,7 @@
   --color-primary-hover: var(--accent-10);
   --color-surface: var(--color-background);
   --color-surface-raised: var(--gray-2);
+  --color-surface-hover: var(--gray-a3);
   --color-text: var(--gray-12);
   --color-text-secondary: var(--gray-11);
   --color-border: var(--gray-6);
