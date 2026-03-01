@@ -95,9 +95,14 @@ describe("RepositoryList", () => {
       <RepositoryList {...defaultProps} isError={true} repositories={[]} />,
     );
 
-    expect(screen.getByRole("alert")).toHaveTextContent(
-      "エラーが発生しました。しばらくしてから再度お試しください。",
-    );
+    expect(
+      screen.getByRole("heading", { name: "エラーが発生しました" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "データの取得中に問題が発生しました。しばらくしてから再度お試しください。",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("repositories が空のとき「検索結果がありません」を表示する", () => {
@@ -105,6 +110,11 @@ describe("RepositoryList", () => {
       <RepositoryList {...defaultProps} repositories={[]} totalPages={0} />,
     );
 
-    expect(screen.getByText("検索結果がありません")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "検索結果がありません" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("別のキーワードで検索してみてください。"),
+    ).toBeInTheDocument();
   });
 });

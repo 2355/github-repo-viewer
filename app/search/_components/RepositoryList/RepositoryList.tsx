@@ -40,14 +40,24 @@ export function RepositoryList({
 
   if (isError) {
     return (
-      <p role="alert">
-        エラーが発生しました。しばらくしてから再度お試しください。
-      </p>
+      <div className={styles.statusContainer} role="alert">
+        <h2 className={styles.statusHeading}>エラーが発生しました</h2>
+        <p className={styles.statusMessage}>
+          データの取得中に問題が発生しました。しばらくしてから再度お試しください。
+        </p>
+      </div>
     );
   }
 
   if (repositories.length === 0) {
-    return <p>検索結果がありません</p>;
+    return (
+      <div className={styles.statusContainer}>
+        <h2 className={styles.statusHeading}>検索結果がありません</h2>
+        <p className={styles.statusMessage}>
+          別のキーワードで検索してみてください。
+        </p>
+      </div>
+    );
   }
 
   return (

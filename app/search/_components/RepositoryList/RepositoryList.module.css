@@ -10,6 +10,26 @@
   gap: var(--space-3);
 }
 
+.statusContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.statusHeading {
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-5);
+}
+
+.statusMessage {
+  font-size: var(--font-size-3);
+  line-height: var(--line-height-3);
+  color: var(--color-text-secondary);
+}
+
 .pagination {
   display: flex;
   justify-content: center;
