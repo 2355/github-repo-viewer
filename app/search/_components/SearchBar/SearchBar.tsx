@@ -35,16 +35,16 @@ export function SearchBar({ defaultValue = "", onSearch }: SearchBarProps) {
         defaultValue={defaultValue}
         placeholder="リポジトリを検索..."
         ref={inputRef}
-        size="2"
+        size="3"
         onChange={() => {
           if (error) setError("");
         }}
       >
         <TextField.Slot>
-          <MagnifyingGlassIcon />
+          <MagnifyingGlassIcon height="16" width="16" />
         </TextField.Slot>
       </TextField.Root>
-      <Button type="submit" size="2">
+      <Button type="submit" size="3">
         検索
       </Button>
       {error && (
