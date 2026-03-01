@@ -52,6 +52,19 @@ const eslintConfig = defineConfig([
 
       // React Compiler の最適化を阻害するコードパターンを検出する
       "react-compiler/react-compiler": "error",
+
+      // 親ディレクトリへの相対 import を禁止し、@/ エイリアスの使用を強制する
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              regex: "^\\.\\./",
+              message: "@/ エイリアスを使ってください",
+            },
+          ],
+        },
+      ],
     },
   },
 

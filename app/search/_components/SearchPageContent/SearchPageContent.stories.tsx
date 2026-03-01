@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { mocked } from "storybook/test";
 
+import { useSearchRepositories } from "@/app/search/_hooks/useSearchRepositories";
 import type { Repository } from "@/infra/github/types";
 
-import { useSearchRepositories } from "../../_hooks/useSearchRepositories";
 import { SearchPageContent } from "./SearchPageContent";
 
 const baseRepository: Repository = {

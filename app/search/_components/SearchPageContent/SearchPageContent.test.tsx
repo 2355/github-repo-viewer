@@ -12,13 +12,13 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock("../../_hooks/useSearchRepositories", () => ({
+vi.mock("@/app/search/_hooks/useSearchRepositories", () => ({
   useSearchRepositories: vi.fn(),
 }));
 
 import { useSearchParams } from "next/navigation";
 
-import { useSearchRepositories } from "../../_hooks/useSearchRepositories";
+import { useSearchRepositories } from "@/app/search/_hooks/useSearchRepositories";
 
 const mockedUseSearchParams = vi.mocked(useSearchParams);
 const mockedUseSearchRepositories = vi.mocked(useSearchRepositories);

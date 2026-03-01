@@ -1,4 +1,5 @@
-import type { ApiResult } from "../types";
+import type { ApiResult } from "@/infra/types";
+
 import { repositorySchema, searchRepositoriesResponseSchema } from "./schemas";
 import type { Repository, SearchRepositoriesResult } from "./types";
 
