@@ -14,7 +14,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
   const { name, owner } = repository;
 
   return (
-    <Card asChild>
+    <Card asChild size="2">
       <Link
         href={`/repositories/${owner.login}/${name}`}
         className={styles.link}

@@ -27,7 +27,7 @@ export function RepositoryList({
     return (
       <div className={styles.list}>
         {Array.from({ length: 5 }, (_, i) => (
-          <Card key={i}>
+          <Card key={i} size="2">
             <div className={styles.skeletonItem} data-testid="skeleton-item">
               <Skeleton width="40px" height="40px" />
               <Skeleton width="200px" height="20px" />
