@@ -2,8 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { RepositoryList } from "@/app/search/_components/RepositoryList/RepositoryList";
-import { SearchBar } from "@/app/search/_components/SearchBar/SearchBar";
+import { RepositoryList } from "@/app/search/_components/SearchPageContent/RepositoryList/RepositoryList";
+import { SearchBar } from "@/app/search/_components/SearchPageContent/SearchBar/SearchBar";
 import { useSearchRepositories } from "@/app/search/_hooks/useSearchRepositories";
 
 import styles from "./SearchPageContent.module.css";
