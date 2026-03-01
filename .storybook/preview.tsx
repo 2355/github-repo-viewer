@@ -3,8 +3,10 @@ import "../app/tokens.css";
 import "../app/globals.css";
 
 import { Theme } from "@radix-ui/themes";
-import type { Preview } from "@storybook/react";
-import React from "react";
+import type { Preview } from "@storybook/nextjs-vite";
+import { sb } from "storybook/test";
+
+sb.mock(import("../app/search/_hooks/useSearchRepositories.ts"), { spy: true });
 
 const preview: Preview = {
   decorators: [
