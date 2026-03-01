@@ -8,8 +8,8 @@
 }
 
 .avatar {
-  width: var(--space-7);
-  height: var(--space-7);
+  width: var(--avatar-size-3);
+  height: var(--avatar-size-3);
   border-radius: var(--radius-full);
   object-fit: cover;
 }

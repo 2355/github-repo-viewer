@@ -3,6 +3,7 @@ declare const styles: {
   readonly "container": string;
   readonly "description": string;
   readonly "header": string;
+  readonly "headerInfo": string;
   readonly "heading": string;
   readonly "link": string;
   readonly "stat": string;

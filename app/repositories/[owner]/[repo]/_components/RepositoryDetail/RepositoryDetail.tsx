@@ -32,16 +32,19 @@ export function RepositoryDetail({ repository }: RepositoryDetailProps) {
           height={64}
           className={styles.avatar}
         />
-        <h1 className={styles.heading}>
-          <a
-            href={html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.link}
-          >
-            {full_name}
-          </a>
-        </h1>
+        <div className={styles.headerInfo}>
+          <h1 className={styles.heading}>
+            <a
+              href={html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              {full_name}
+            </a>
+          </h1>
+          {language && <Badge size="2">{language}</Badge>}
+        </div>
       </div>
       {description && <p className={styles.description}>{description}</p>}
       <div className={styles.stats}>
@@ -70,7 +73,6 @@ export function RepositoryDetail({ repository }: RepositoryDetailProps) {
           <span className={styles.statLabel}>Issues</span>
         </div>
       </div>
-      {language && <Badge size="2">{language}</Badge>}
     </Card>
   );
 }

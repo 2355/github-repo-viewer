@@ -7,12 +7,13 @@ export default function Loading() {
     <Card className={styles.container}>
       <div className={styles.header}>
         <Skeleton
-          width="64px"
-          height="64px"
           data-testid="skeleton-avatar"
           className={styles.avatarSkeleton}
         />
-        <Skeleton width="240px" height="30px" data-testid="skeleton" />
+        <div className={styles.headerInfo}>
+          <Skeleton width="240px" height="30px" data-testid="skeleton" />
+          <Skeleton width="80px" height="24px" data-testid="skeleton" />
+        </div>
       </div>
       <Skeleton width="360px" height="20px" data-testid="skeleton" />
       <div className={styles.stats}>
@@ -23,7 +24,6 @@ export default function Loading() {
           </div>
         ))}
       </div>
-      <Skeleton width="80px" height="24px" data-testid="skeleton" />
     </Card>
   );
 }
