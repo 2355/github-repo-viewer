@@ -1,3 +1,9 @@
+# postinstall 等のスクリプトを実行させないパッケージ
+# スクリプト未許可の警告を抑制するために設定
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+
+# postinstall 等のスクリプト実行を許可するパッケージ
+onlyBuiltDependencies:
+  - lefthook
