@@ -171,11 +171,11 @@ README の AI 利用レポートは最後にまとめず、各ステップの完
 
 #### Step 2-1: Header
 
-- `components/organisms/Header/`: タイトルバー
+- `components/modules/Header/`: タイトルバー
 
 #### Step 2-2: Pagination
 
-- `components/atoms/Pagination/`: ページネーション UI（現在ページ、総ページ数、ページ変更コールバック）
+- `components/parts/Pagination/`: ページネーション UI（現在ページ、総ページ数、ページ変更コールバック）
 
 ### Step 3: 検索画面
 

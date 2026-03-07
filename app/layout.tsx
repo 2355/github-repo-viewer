@@ -5,7 +5,7 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 
-import { Header } from "@/components/organisms/Header/Header";
+import { Header } from "@/components/modules/Header/Header";
 
 import styles from "./layout.module.css";
 import { QueryProvider } from "./providers";

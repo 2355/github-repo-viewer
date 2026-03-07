@@ -1,7 +1,7 @@
 import { Card, Skeleton } from "@radix-ui/themes";
 
 import { RepositoryCard } from "@/app/search/_components/SearchPageContent/RepositoryList/RepositoryCard/RepositoryCard";
-import { Pagination } from "@/components/atoms/Pagination/Pagination";
+import { Pagination } from "@/components/parts/Pagination/Pagination";
 import type { Repository } from "@/infra/github/types";
 
 import styles from "./RepositoryList.module.css";
