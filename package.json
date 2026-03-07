@@ -11,7 +11,7 @@
     "format:fix": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "tsc": "tsc --noEmit",
+    "tsc": "tsc",
     "tcm": "tcm -p '**/*.module.css'",
     "tcm:watch": "tcm -p '**/*.module.css' --watch",
     "storybook": "storybook dev -p 6006",
