@@ -5,6 +5,7 @@ import prettier from "eslint-config-prettier";
 import reactCompiler from "eslint-plugin-react-compiler";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import storybook from "eslint-plugin-storybook";
+import testingLibrary from "eslint-plugin-testing-library";
 import unusedImports from "eslint-plugin-unused-imports";
 import vitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
@@ -90,6 +91,11 @@ const eslintConfig = defineConfig([
   {
     files: ["**/*.test.{ts,tsx}"],
     ...vitest.configs.recommended,
+  },
+  // testing-library/react recommended — JSX を含むテストファイルのみに適用
+  {
+    files: ["**/*.test.tsx"],
+    ...testingLibrary.configs["flat/react"],
   },
 
   // ストーリーファイルの書き方に関するルール
