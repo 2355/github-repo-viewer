@@ -5,6 +5,7 @@ pre-commit:
       run: pnpm eslint --fix {staged_files}
       stage_fixed: true
     format-fix:
+      glob: "*.{ts,tsx,js,jsx,json,css,md,yaml,yml}"
       run: pnpm prettier --write {staged_files}
       stage_fixed: true
     tcm:

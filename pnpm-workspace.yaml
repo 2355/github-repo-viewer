@@ -1,3 +1,6 @@
+# package.json の engines に一致しない Node.js / pnpm では pnpm install をエラーにする
+engineStrict: true
+
 # postinstall 等のスクリプトを実行させないパッケージ
 # スクリプト未許可の警告を抑制するために設定
 ignoredBuiltDependencies:
