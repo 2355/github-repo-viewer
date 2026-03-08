@@ -11,7 +11,10 @@ import styles from "./layout.module.css";
 import { QueryProvider } from "./providers";
 
 export const metadata: Metadata = {
-  title: "GitHub Repository Viewer",
+  title: {
+    default: "GitHub Repository Viewer",
+    template: "%s | GitHub Repository Viewer",
+  },
   description: "Search and browse GitHub repositories",
 };
 
