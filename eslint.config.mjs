@@ -6,6 +6,7 @@ import reactCompiler from "eslint-plugin-react-compiler";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import storybook from "eslint-plugin-storybook";
 import unusedImports from "eslint-plugin-unused-imports";
+import vitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
 
 const eslintConfig = defineConfig([
@@ -83,6 +84,12 @@ const eslintConfig = defineConfig([
     rules: {
       "@typescript-eslint/require-await": "off",
     },
+  },
+
+  // vitest recommended — テストファイルのみに適用
+  {
+    files: ["**/*.test.{ts,tsx}"],
+    ...vitest.configs.recommended,
   },
 
   // ストーリーファイルの書き方に関するルール
