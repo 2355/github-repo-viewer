@@ -7,6 +7,10 @@ pre-commit:
     format-fix:
       run: pnpm prettier --write {staged_files}
       stage_fixed: true
+    tcm:
+      glob: "*.module.css"
+      run: pnpm tcm
+      stage_fixed: true
     tsc:
       glob: "*.{ts,tsx}"
       run: pnpm tsc
