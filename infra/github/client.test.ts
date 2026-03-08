@@ -204,6 +204,7 @@ describe("getRepository", () => {
         headers: {
           Accept: "application/vnd.github+json",
         },
+        next: { revalidate: 60 },
       },
     );
   });

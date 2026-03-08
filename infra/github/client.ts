@@ -66,7 +66,10 @@ export async function getRepository(
   repo: string,
 ): Promise<ApiResult<Repository>> {
   const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
-  const response = await fetch(url, { headers: defaultHeaders });
+  const response = await fetch(url, {
+    headers: defaultHeaders,
+    next: { revalidate: 60 },
+  });
 
   if (!response.ok) {
     return {
