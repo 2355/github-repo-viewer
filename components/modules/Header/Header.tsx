@@ -6,7 +6,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>
-        <Link href="/search" className={styles.link}>
+        <Link href="/" className={styles.link}>
           GitHub Repository Viewer
         </Link>
       </h1>

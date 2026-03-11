@@ -16,11 +16,10 @@ GitHub のリポジトリを検索・閲覧する Next.js Web アプリを構築
 
 ## URL 設計
 
-| 画面     | URL                                 |
-| -------- | ----------------------------------- |
-| トップ   | `/` → `/search` にリダイレクト      |
-| 検索画面 | `/search?q={keyword}&page={number}` |
-| 詳細画面 | `/repositories/{owner}/{repo}`      |
+| 画面     | URL                            |
+| -------- | ------------------------------ |
+| 検索画面 | `/?q={keyword}&page={number}`  |
+| 詳細画面 | `/repositories/{owner}/{repo}` |
 
 - 検索キーワードとページ番号は URL クエリパラメータで管理し、ブラウザバック・URL 共有に対応する
 - TanStack Query の queryKey に `[q, page]` を含め、同一条件はキャッシュから返す
@@ -52,26 +51,22 @@ GitHub のリポジトリを検索・閲覧する Next.js Web アプリを構築
 │   ├── layout.module.css
 │   ├── globals.css                       # グローバルスタイル
 │   ├── tokens.css                        # デザイントークン（CSS custom properties）
-│   ├── page.tsx                          # / → /search にリダイレクト
-│   │
-│   ├── search/
-│   │   ├── page.tsx                      # 検索画面 (Client Component)
-│   │   ├── page.module.css
-│   │   ├── _components/
-│   │   │   ├── SearchBar/
-│   │   │   │   ├── SearchBar.tsx
-│   │   │   │   ├── SearchBar.module.css
-│   │   │   │   └── SearchBar.test.tsx
-│   │   │   ├── RepositoryList/
-│   │   │   │   ├── RepositoryList.tsx
-│   │   │   │   ├── RepositoryList.module.css
-│   │   │   │   └── RepositoryList.test.tsx
-│   │   │   └── RepositoryCard/
-│   │   │       ├── RepositoryCard.tsx
-│   │   │       ├── RepositoryCard.module.css
-│   │   │       └── RepositoryCard.test.tsx
-│   │   └── _hooks/
-│   │       └── useSearchRepositories.ts
+│   ├── page.tsx                          # 検索画面 (Client Component)
+│   ├── _components/
+│   │   ├── SearchBar/
+│   │   │   ├── SearchBar.tsx
+│   │   │   ├── SearchBar.module.css
+│   │   │   └── SearchBar.test.tsx
+│   │   ├── RepositoryList/
+│   │   │   ├── RepositoryList.tsx
+│   │   │   ├── RepositoryList.module.css
+│   │   │   └── RepositoryList.test.tsx
+│   │   └── RepositoryCard/
+│   │       ├── RepositoryCard.tsx
+│   │       ├── RepositoryCard.module.css
+│   │       └── RepositoryCard.test.tsx
+│   ├── _hooks/
+│   │   └── useSearchRepositories.ts
 │   │
 │   └── repositories/
 │       └── [owner]/
@@ -181,24 +176,23 @@ README の AI 利用レポートは最後にまとめず、各ステップの完
 
 #### Step 3-1: SearchBar
 
-- `app/search/_components/SearchBar/`: 検索窓 + 検索ボタン
+- `app/_components/SearchBar/`: 検索窓 + 検索ボタン
 
 #### Step 3-2: RepositoryCard
 
-- `app/search/_components/RepositoryCard/`: 一覧の1行（オーナーアイコン + リポ名、詳細画面へのリンク）
+- `app/_components/RepositoryCard/`: 一覧の1行（オーナーアイコン + リポ名、詳細画面へのリンク）
 
 #### Step 3-3: useSearchRepositories
 
-- `app/search/_hooks/useSearchRepositories.ts`: TanStack Query ベースの検索 hook（queryKey に `[q, page]` を含める）
+- `app/_hooks/useSearchRepositories.ts`: TanStack Query ベースの検索 hook（queryKey に `[q, page]` を含める）
 
 #### Step 3-4: RepositoryList
 
-- `app/search/_components/RepositoryList/`: RepositoryCard + Pagination を組み合わせた一覧（ローディング・エラー表示含む）
+- `app/_components/RepositoryList/`: RepositoryCard + Pagination を組み合わせた一覧（ローディング・エラー表示含む）
 
 #### Step 3-5: 検索画面の組み立て
 
-- `app/search/page.tsx`: 上記を組み合わせた検索画面（Client Component、URL クエリパラメータと同期）
-- `app/page.tsx`: `/` → `/search` へのリダイレクト
+- `app/page.tsx`: 上記を組み合わせた検索画面（Client Component、URL クエリパラメータと同期）
 
 ### Step 4: 詳細画面
 

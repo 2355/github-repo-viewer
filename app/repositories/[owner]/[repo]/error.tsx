@@ -20,7 +20,7 @@ export default function ErrorPage({ reset }: ErrorPageProps) {
       <div className={styles.actions}>
         <Button onClick={reset}>再試行</Button>
         <Button variant="outline" asChild>
-          <Link href="/search">検索に戻る</Link>
+          <Link href="/">検索に戻る</Link>
         </Button>
       </div>
     </div>

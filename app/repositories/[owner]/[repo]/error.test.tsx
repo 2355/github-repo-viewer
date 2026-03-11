@@ -28,10 +28,10 @@ describe("error", () => {
     expect(defaultProps.reset).toHaveBeenCalledTimes(1);
   });
 
-  it("「検索に戻る」リンクが /search を指す", () => {
+  it("「検索に戻る」リンクが / を指す", () => {
     render(<ErrorPage {...defaultProps} />);
 
     const link = screen.getByRole("link", { name: "検索に戻る" });
-    expect(link).toHaveAttribute("href", "/search");
+    expect(link).toHaveAttribute("href", "/");
   });
 });

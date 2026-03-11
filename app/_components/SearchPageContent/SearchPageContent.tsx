@@ -2,9 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { RepositoryList } from "@/app/search/_components/SearchPageContent/RepositoryList/RepositoryList";
-import { SearchBar } from "@/app/search/_components/SearchPageContent/SearchBar/SearchBar";
-import { useSearchRepositories } from "@/app/search/_hooks/useSearchRepositories";
+import { RepositoryList } from "@/app/_components/SearchPageContent/RepositoryList/RepositoryList";
+import { SearchBar } from "@/app/_components/SearchPageContent/SearchBar/SearchBar";
+import { useSearchRepositories } from "@/app/_hooks/useSearchRepositories";
 
 import styles from "./SearchPageContent.module.css";
 
@@ -19,12 +19,12 @@ export function SearchPageContent() {
 
   const handleSearch = (newQuery: string) => {
     const params = new URLSearchParams({ q: newQuery, page: "1" });
-    router.push(`/search?${params.toString()}`);
+    router.push(`/?${params.toString()}`);
   };
 
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams({ q: query, page: String(newPage) });
-    router.push(`/search?${params.toString()}`);
+    router.push(`/?${params.toString()}`);
   };
 
   return (

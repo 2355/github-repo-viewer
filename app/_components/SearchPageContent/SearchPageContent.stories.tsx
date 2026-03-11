@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { mocked } from "storybook/test";
 
-import { useSearchRepositories } from "@/app/search/_hooks/useSearchRepositories";
+import { useSearchRepositories } from "@/app/_hooks/useSearchRepositories";
 import type { Repository } from "@/infra/github/types";
 
 import { SearchPageContent } from "./SearchPageContent";
@@ -35,7 +35,7 @@ const meta = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        pathname: "/search",
+        pathname: "/",
         query: {},
       },
     },
@@ -58,7 +58,7 @@ export const Loading: Story = {
   parameters: {
     nextjs: {
       navigation: {
-        pathname: "/search",
+        pathname: "/",
         query: { q: "react" },
       },
     },
@@ -76,7 +76,7 @@ export const WithResults: Story = {
   parameters: {
     nextjs: {
       navigation: {
-        pathname: "/search",
+        pathname: "/",
         query: { q: "react" },
       },
     },
@@ -97,7 +97,7 @@ export const Error: Story = {
   parameters: {
     nextjs: {
       navigation: {
-        pathname: "/search",
+        pathname: "/",
         query: { q: "react" },
       },
     },
@@ -115,7 +115,7 @@ export const EmptyResults: Story = {
   parameters: {
     nextjs: {
       navigation: {
-        pathname: "/search",
+        pathname: "/",
         query: { q: "react" },
       },
     },

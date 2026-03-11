@@ -34,6 +34,7 @@ pnpm storybook        # Storybook 起動 (port 6006)
 ```
 
 単一テストファイルの実行:
+
 ```bash
 pnpm vitest run path/to/file.test.tsx
 ```
@@ -42,8 +43,7 @@ pnpm vitest run path/to/file.test.tsx
 
 ### ルーティング & 画面構成
 
-- `/` → `/search` にリダイレクト（`next.config.ts`）
-- `/search` — 検索画面（Client Component、React Query でデータフェッチ）
+- `/` — 検索画面（Client Component、React Query でデータフェッチ）
 - `/repositories/[owner]/[repo]` — 詳細画面（Server Component、サーバー側で直接 API 呼び出し）
 
 検索キーワード・ページ番号は URL クエリパラメーターで管理し、ブラウザの戻る・進むで状態を復元可能。
@@ -54,10 +54,9 @@ pnpm vitest run path/to/file.test.tsx
 
 ```
 app/
-  search/
-    _components/SearchBar/, RepositoryList/, RepositoryCard/, SearchPageContent/
-    _hooks/useSearchRepositories.ts
-    page.tsx
+  _components/SearchBar/, RepositoryList/, RepositoryCard/, SearchPageContent/
+  _hooks/useSearchRepositories.ts
+  page.tsx
   repositories/[owner]/[repo]/
     _components/RepositoryDetail/
     page.tsx, loading.tsx, error.tsx
@@ -72,6 +71,7 @@ infra/
 ### コンポーネント構成規約
 
 1 コンポーネント = 1 ディレクトリ:
+
 ```
 ComponentName/
   ComponentName.tsx

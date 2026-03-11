@@ -12,13 +12,13 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock("@/app/search/_hooks/useSearchRepositories", () => ({
+vi.mock("@/app/_hooks/useSearchRepositories", () => ({
   useSearchRepositories: vi.fn(),
 }));
 
 import { useSearchParams } from "next/navigation";
 
-import { useSearchRepositories } from "@/app/search/_hooks/useSearchRepositories";
+import { useSearchRepositories } from "@/app/_hooks/useSearchRepositories";
 
 const mockedUseSearchParams = vi.mocked(useSearchParams);
 const mockedUseSearchRepositories = vi.mocked(useSearchRepositories);
@@ -123,7 +123,7 @@ describe("SearchPageContent", () => {
     await userEvent.clear(searchbox);
     await userEvent.type(searchbox, "next.js{Enter}");
 
-    expect(mockPush).toHaveBeenCalledWith("/search?q=next.js&page=1");
+    expect(mockPush).toHaveBeenCalledWith("/?q=next.js&page=1");
   });
 
   it("検索実行でページが 1 にリセットされる", async () => {
@@ -136,7 +136,7 @@ describe("SearchPageContent", () => {
     await userEvent.clear(searchbox);
     await userEvent.type(searchbox, "vue{Enter}");
 
-    expect(mockPush).toHaveBeenCalledWith("/search?q=vue&page=1");
+    expect(mockPush).toHaveBeenCalledWith("/?q=vue&page=1");
   });
 
   it("ページ変更で URL が更新される", async () => {
@@ -152,7 +152,7 @@ describe("SearchPageContent", () => {
 
     await userEvent.click(screen.getByLabelText("次のページへ"));
 
-    expect(mockPush).toHaveBeenCalledWith("/search?q=react&page=2");
+    expect(mockPush).toHaveBeenCalledWith("/?q=react&page=2");
   });
 
   it("検索結果が表示される", () => {

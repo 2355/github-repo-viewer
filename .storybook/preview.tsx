@@ -6,7 +6,7 @@ import { Theme } from "@radix-ui/themes";
 import type { Preview } from "@storybook/nextjs-vite";
 import { sb } from "storybook/test";
 
-sb.mock(import("../app/search/_hooks/useSearchRepositories.ts"), { spy: true });
+sb.mock(import("../app/_hooks/useSearchRepositories.ts"), { spy: true });
 
 const preview: Preview = {
   decorators: [
